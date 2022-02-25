@@ -1,0 +1,15 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.22.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-DECOMPRESSTAR-559095:
+    - sonarqube-scanner > download > decompress > decompress-tar:
+        reason: No upgrade or patch available
+        expires: '2022-03-18T21:47:02.305Z'
+    - sonarqube-scanner > download > decompress > decompress-tarbz2 > decompress-tar:
+        reason: No upgrade or patch available
+        expires: '2022-03-18T21:47:02.305Z'
+    - sonarqube-scanner > download > decompress > decompress-targz > decompress-tar:
+        reason: No upgrade or patch available
+        expires: '2022-03-18T21:47:02.305Z'
+patch: {}

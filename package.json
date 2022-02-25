@@ -1,0 +1,57 @@
+{
+  "name": "node-starter",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "main": "index.js",
+  "scripts": {
+    "detect-secrets": "cross-env-shell docker run --rm -v ${INIT_CWD}:/code ibmcom/detect-secrets-hook:0.13.1.ibm.47.dss --baseline .secrets.baseline",
+    "detect-secrets:update-baseline": "cross-env-shell docker run --rm -v ${INIT_CWD}:/code ibmcom/detect-secrets:0.13.1.ibm.47.dss scan --update .secrets.baseline",
+    "eslint:fix": "eslint --cache --fix",
+    "eslint:verify": "eslint .",
+    "prepare": "husky install",
+    "prettier:fix": "prettier --write",
+    "prettier:verify": "prettier --check .",
+    "test": "npm run test:snyk && npm run test:unit && npm run test:sonar",
+    "test:snyk": "snyk test --dev",
+    "test:snyk:monitor": "snyk monitor --dev",
+    "test:sonar": "env-cmd -x sonar-scanner -D sonar.organization=\\$SONAR_ORGANIZATION -D sonar.projectKey=\\$SONAR_PROJECT_KEY -D sonar.login=\\$SONAR_TOKEN",
+    "test:unit": "jest",
+    "test:unit:watch": "npm run test:unit -- --watch"
+  },
+  "lint-staged": {
+    "*": "npm run detect-secrets",
+    "*.js": "npm run eslint:fix",
+    "*.{js,css,md,yml,json}": "npm run prettier:fix",
+    "package.json": [
+      "typesync --silent",
+      "sort-package-json"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^16.2.1",
+    "@commitlint/config-conventional": "^16.2.1",
+    "@commitlint/travis-cli": "^16.2.1",
+    "@types/eslint": "^8.4.1",
+    "@types/eslint-plugin-prettier": "^3.1.0",
+    "@types/prettier": "^2.4.4",
+    "cross-env": "^7.0.3",
+    "env-cmd": "^10.1.0",
+    "eslint": "^8.9.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.4.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-yml": "^0.14.0",
+    "husky": "^7.0.4",
+    "jest": "^27.5.1",
+    "lint-staged": "^12.3.4",
+    "npm-check-updates": "^12.4.0",
+    "prettier": "^2.5.1",
+    "snyk": "^1.858.0",
+    "sonarqube-scanner": "^2.8.1",
+    "sort-package-json": "^1.54.0",
+    "typesync": "^0.8.0"
+  }
+}
