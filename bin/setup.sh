@@ -12,4 +12,3 @@ gh repo create "${GITHUB_PROJECT}" --public --template="${GITHUB_TEMPLATE}" --cl
 cd "${GITHUB_PROJECT}"
 git fetch
 git checkout main
-

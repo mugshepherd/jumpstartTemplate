@@ -11,22 +11,16 @@ This is a template repository for use with nodejs projects.
 - nvm (verify you have it installed with `nvm --version`)
 - IBM GitHub ssh key should be set, so you can clone repositories with the `git clone` command [https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh)
 
-### Create the repository
-
-```
-gh repo create test-kata-template --public --template="https://github.ibm.com/Alexander-Skelding/node-starter"
-```
-
 ### Clone the repository
 
 ```
-git clone git@github.ibm.com:[organization]/[project].git
+git clone git@github.ibm.com:Alexander-Skelding/node-starter-jumpstart.git
 ```
 
 ### Change your current directory
 
 ```
-cd [project]
+cd node-starter-jumpstart
 ```
 
 ### Install and use the project node version
@@ -90,3 +84,33 @@ git commit -m 'build: executed the setup.sh script to setup the project'
 ```
 git push origin main
 ```
+
+### shellspec
+
+#### Installation
+
+`brew tap shellspec/shellspec`
+
+`brew install shellspec`
+
+`brew install kcov`
+
+#### Running
+
+`shellspec --kcov`
+
+#### Update XCode to latest (if installation failed due to outdated XCode version)
+
+`sudo rm -rf /Library/Developer/CommandLineTools`
+
+`sudo xcode-select --install`
+
+### shellcheck
+
+#### Installation
+
+`brew install shellcheck`
+
+#### Running
+
+`shellcheck bin/*.sh lib/*.sh`

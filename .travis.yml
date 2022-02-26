@@ -21,9 +21,14 @@ jobs:
       name: Commitlint verification
       env: Commitlint verification
 
-    - script: npm run eslint:verify
-      name: ESLint verification
-      env: ESLint verification
+    - script: npm run shellcheck ./bin/*.sh ./lib/*.sh
+      name: Shellcheck Analysis Tool for bash
+      env: Shellcheck Analysis Tool for bash
+      language: bash
+      install:
+        - wget -qO- "https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.linux.x86_64.tar.xz" | tar -xJv
+        - cp "shellcheck-stable/shellcheck" /usr/bin/
+        - shellcheck --version
 
     - script: npm run prettier:verify
       name: Prettier verification
@@ -33,16 +38,26 @@ jobs:
       name: Detect secrets in files
       env: Detect secrets in files
 
-    # - script: npm run test:snyk
-    #   name: Snyk test & monitor
-    #   env: Snyk test & monitor
-    #   after_success: npm run test:snyk:monitor
+    - script: npm run test:snyk
+      name: Snyk test & monitor
+      env: Snyk test & monitor
+      after_success: npm run test:snyk:monitor
 
-    # - stage: Unit test & sonar-scanner
-    #   script:
-    #     - npm run test:unit
-    #     - sonar-scanner -D sonar.organization="${SONAR_ORGANIZATION}" -D sonar.login="${SONAR_TOKEN}"
-    #       -D sonar.projectKey="${SONAR_PROJECT_KEY}" -D sonar.projectName="${SONAR_PROJECT_NAME}"
-    #       -D sonar.branch.name="${TRAVIS_BRANCH}"
-    #   name: Unit test & sonar-scanner
-    #   env: Unit test & sonar-scanner
+    - stage: Shellspec testing framework for bash & sonar-scanner
+      script:
+        - npm run test:shellspec
+        - sonar-scanner -D sonar.organization="${SONAR_ORGANIZATION}" -D sonar.login="${SONAR_TOKEN}"
+          -D sonar.projectKey="${SONAR_PROJECT_KEY}" -D sonar.projectName="${SONAR_PROJECT_NAME}"
+          -D sonar.branch.name="${TRAVIS_BRANCH}"
+      name: Shellspec Testing Framework for bash & sonar-scanner
+      env: Shellspec Testing Framework for bash & sonar-scanner
+      install:
+        - curl -fsSL https://git.io/shellspec | sh -s -- --yes
+        - shellspec --version
+env:
+  global:
+    - secure: cJzFJLymd57/5H/Mu3IdDHOJi+vvQvx0AXfTg7JOW6yQLnZNFNzgILLU8FIm/WT6XXcaGktGhGbB8NwtqlfPX3LenIeZkCrShoaiC4iYvN5MqfKuNZVa8iFRNN4Uq9tJUV06OZDKloiq0XBX/rgVs0O5Q4y8OAog7iwiR3ZONCjf6Q0KNlnXphfVdt5kkddqy5hPhwQP0UuT9174mn6440B5oLsz2xjzJFd35rxw6oXXWSYXsN8nr/weUPYJDYaxungDdWkHw4o3PxiFz6tgYC3xsULqLrjiij3yNYX5qpkEFrboaF6EGW36RD5jqDbdgA7GA1a2KP4kvJBziNMy2Gnmi76UlWNEdX8NE85DjMIZSQMNj5Qnp6c5uFl/hi/ad365lH4jWNjvsphIhVV5Dg98Xu+U8vbkPGSYwHJQN4fAMJQs69y3DvOwnqz1Wv065FGh1GxH4XfTLlzOTtPDAWjJE+F9d1P2mmcnRZCbtFR/noeyNlObi8v9k+++COSE3St+k3df1YuPjWyb0IUJprzUdVY+oKoJFozDgmBeBpDbSYkfgT+G9Nx1QizsMVB8xzrtarbJM5gtdLZUQ32XXwSWDEcDy0sC0NGPf4StuBcwVKz4mSCcFQbHCeGJHPotrpDIyJ4uvLeeCJq1uy6WZp2dBrbQDrJMMyzWuAYfJ4M=
+    - secure: eWo339jMiXD9i4ft40Eq2Nair/gn+iBuFqlmLYTDwm6O9LNCTu4eBOZPka2bFwWrmWa335OEU6RxNPHCODq8il2JN7UKVLrDyPQ57sNQCNPFdaKLJfa7al+EnXD0C3wmm2cCSC2aP9X3R6mLp3I82mblxt/7wRyMdkrvVZ1qkrHrr7d3GVOGLgsn8zRO8XEyTt77CXRbfCXJzWh1+f2IuKffbtUL61dMbzAbh3mIvJg9dif+a4Iq1e9iwOVlAO6CKEJ1mqT5W/zvXnYzDE0qgEnGTzAAPfkiU+On/Y9VnVKZdFUOcA9z21xQvylIud2QRqZIj6P82kXD+NR+yL0rh7aLvrbPirvhi/PwF11UFhTp2CLo4eaCMSRT7kg3iEgSDxxsh2IgCxGeQjFKh7QFHeGERvG1w8zF3mD3O0QPsOF4epPWov8aIUeHeFsGDi1M9c/GXUMZBK8I95fGpS1cwFA2CdGYDASXQG6cLF1kpC8P3Kd2XDVyeAWiHxJdszcjqzI0AFqsSDcGWOcc0UrWfMF8W+jt/YAnDp1Uslyf3qFJ1BIxxWKjcj9IY6dEg2Z7cCzGdQUKucj+wJ/ssM2SVC5pHoLibKKS7cUnHt7JT7f6d29f3lCs8NCQcWasqX8TF8XlDxjHzlUmJrEyZSgqrRMrhevHVx/EDrzWKyeKlHA=
+    - secure: peESvdgS6K8IE7PBrPUG9PGDv7HZuvg5p8QF4wkJzZCMFYkzuroFprFCbaw5Fw6V560fEGtvyUvH5dxdf27o0+yEmC7W+W2+VSpGO3/ZlemTraiikfbxouKiNAW183aoOjzXct34Mn+hcprQclSgF3Vm/0E9htVbFU9EfG31X2s6Vkqlwmtsg2EYQ2M53Lj9xFz7iB1NHyQM23kKHxYyhBNIGCBno+K80xmlnrgjKdF5CM9Lz6HtR6p4Z/pUKx4sOBLdTUzdyLL5iUyepav8aXTIy9g4jBOYrGnS2NWBmUHpl/w+1wYxqpAweF+Qt3CwATjToWezLbMFhBvBsIBTDpGEV/AiVebLp6RIF58MJJz4VgUx02d8PDEThAQ5nH76nIOAkFI2uSrhVoEPjNWG3gLuu1UiVTjlbAAhIypJxjjxsXLtE7L5G2WdtigxOaSfCylny2E6o9FNFDr0ddqWu8p755kbkKDK+gm5sWZNruD0QiD8pF1iRLgHxuiK2nboJXpZc8u4oDCX63zz0m0p9BnCBxT//S4Ze2o5qG3sEBya6Eqt2tluFpCvsEewSpU5llZbKw8TNS5n85XrRjJVAu3bu5uC4LcJi0SnCYYdyP+XrBMVr8fXDLbgt9d4xtgDWTmfreZ0Nw2Ygm/SAcmFJRD8N0Q/aHRHzVmqZtlbols=
+    - secure: iBOsCxi5oBvYSqtoP5M0Xhl6FE1B6i0PrPF57eISbA6HqOhoHZ6zpmPZRAtyHGpegyO4Wh1hR+Ly+WwJFqn5OhRX7mJBB71153SWw6oQUN8RZ9SGx1ZCmqlbU7VpvF2vJqSK/DUa0oxdK1DmBNK3fYUiqtIMiJo/TwuoAgw0zNfHw5VB/E6rOCLRLdwfK0C24DVTzjZjKul7kqOhGgcsh05jsIA9sfEwjDVm6EyjInQKCvFSYlVQcVqZrsZqvSmYmhHnCkyMkNWvgdqNq9J4vxfj5b4CD2vadAu+IVOfjXsf6cQSEyvvRA3KsG6s41tIr1kjfuZ/zdGFO2K742lalj9SN2nv8Dk6ceNN4ODX9H/gCtJO8PHRE9jgyDlftwSESbvsnydh2ILf6S8x5lSz09cXGyc7hSKbZ2XjavnjwKLKC4pMvY1pikG2wZXPx3fovSB2MGHK1ve0xNc/YFwLJdTQjph5kNAEGN3ppPQ+u+kOlGbCNESPAbFcGSE5OIpRkXhBRCFn3+zVWcfH/dcOATV6UwR7g8mpfwpe4LsnMVLQPjzHYoKQt0Wh34iDoIPns6xVI0X6Xs69E1mdAjC0S+MwI4YAGS/p6FyYfUzn7ymVK0mOKMxr51f9FQ0zHBZGlnJltujmh/AEW4tbg2ttkvRyKbHrjRj91kL+olKjneI=
+    - secure: DAPvXVZtVN1k8YHuCE0Tr7kzBKI7qwYcEiFaXeB2tdGt9JkcrWKOqHY+BV6EA1uCG1ble6ZnHEIb6FPE3p/AdNqOhEcraA75AdApaFIQkF5QId9bWmQPH6TdrcFNwtgsDNDil5mPJ5+0GSawhsW0uaMAn+DkG8NKUKPiT91bG3V9jwIYo/84XSNVZ3u0GF4gMlblMjRDzknB7GXCbJPLDG2RrkDu76Z6y4go1BPLbHBmDGIdxhWCeerMcBNwLQ1hfFg7uio9zHYCgG7XeD8WZDH8XfjHKlPSIUtej2Po4lKQdgX2BwrC8SmSvtsGnP8C49kCObbK/u8CuSO2oJZfiHCWC9wnk4sLzrl9bYxpP0oV8bYdh5xiVAuWJhoiVCxgzDu3W0wb/N0RrtklM2Yjq1If2yvkz5Shk2ECaMLoasDdnbNtPgWBEY/HZZG1W5Ah56W4yx93w64mkewHyWn4wt5zCz4fWvOreaBacqajGbdATdzsEHxri1wATRGNqg8KBxN7FYQvDNrZbWlvjm0Sy9QMxoVQacvxax+PvHsYOncrZGFPOiDlqNeM70exhlGcs2kQPVsXSLcuR5bW6qMnDsqtSltD46kBrHsRwttFgtfpAr1o9sTGBg80QfQrmyQSW0753wCG5NuRooLQ9rx1qmU2gCE0q9JNPwf2ldIxOXI=
