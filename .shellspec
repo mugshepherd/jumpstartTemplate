@@ -1,6 +1,6 @@
 --require spec_helper
 
 --kcov
---kcov-options "--include-path=. --path-strip-level=1"
+
+--kcov-options "--include-path=./bin,./lib"
 --kcov-options "--include-pattern=.sh"
---kcov-options "--exclude-pattern=/node_modules/,/.husky/,/.shellspec,/spec/,/coverage/,/report/"
