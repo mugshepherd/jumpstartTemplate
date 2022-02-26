@@ -97,7 +97,7 @@ git push origin main
 
 #### Running
 
-`shellspec --kcov`
+`shellspec`
 
 #### Update XCode to latest (if installation failed due to outdated XCode version)
 
