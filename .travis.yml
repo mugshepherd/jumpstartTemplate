@@ -51,6 +51,10 @@ jobs:
           -D sonar.branch.name="${TRAVIS_BRANCH}"
       name: Shellspec Testing Framework for bash & sonar-scanner
       env: Shellspec Testing Framework for bash & sonar-scanner
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get install kcov
+        - kcov --version
       install:
         - curl -fsSL https://git.io/shellspec | sh -s -- --yes
         - shellspec --version
