@@ -23,8 +23,8 @@ jobs:
       env: Commitlint verification
 
     - script: npm run shellcheck ./bin/*.sh ./lib/*.sh
-      name: Shellcheck Analysis Tool for bash
-      env: Shellcheck Analysis Tool for bash
+      name: Shellcheck verification
+      env: Shellcheck verification
       language: bash
       install:
         - wget -qO- "https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.linux.x86_64.tar.xz" | tar -xJv
@@ -44,17 +44,23 @@ jobs:
       env: Snyk test & monitor
       after_success: npm run test:snyk:monitor
 
-    - stage: Shellspec testing framework for bash & sonar-scanner
+    - stage: Shellspec & sonar-scanner
       script:
         - npm run test:shellspec
         - sonar-scanner -D sonar.organization="${SONAR_ORGANIZATION}" -D sonar.login="${SONAR_TOKEN}"
           -D sonar.projectKey="${SONAR_PROJECT_KEY}" -D sonar.projectName="${SONAR_PROJECT_NAME}"
           -D sonar.branch.name="${TRAVIS_BRANCH}"
-      name: Shellspec Testing Framework for bash & sonar-scanner
-      env: Shellspec Testing Framework for bash & sonar-scanner
+      name: Shellspec & sonar-scanner
+      env: Shellspec & sonar-scanner
       before_install:
+        - lsb_release -a
         - sudo apt-get update
-        - sudo apt-get install kcov
+        - sudo apt-get install -y bash binutils-dev libcurl4-openssl-dev zlib1g-dev libdw-dev libiberty-dev
+        - git clone https://github.com/SimonKagstrom/kcov.git
+        - cd kcov
+        - mkdir build; cd build; cmake ..; make -j4; sudo make install
+        - cd ../..
+        - git clone https://github.com/shellspec/shellspec.git
         - kcov --version
       install:
         - curl -fsSL https://git.io/shellspec | sh -s -- --yes
