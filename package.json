@@ -12,7 +12,7 @@
     "prettier:fix": "prettier --write",
     "prettier:verify": "prettier --check .",
     "shellcheck": "shellcheck --severity=error",
-    "test": "npm run test:snyk && shellspec --kcov && npm run test:sonar",
+    "test": "npm run test:snyk && npm run test:shellspec && npm run test:sonar",
     "test:shellspec": "shellspec --kcov",
     "test:snyk": "snyk test --dev",
     "test:snyk:monitor": "snyk monitor --dev",
