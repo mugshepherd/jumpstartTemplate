@@ -29,9 +29,19 @@
 - [x] Sync project with Travis
 - [x] Swap the old project name with new one
 
+## Pomodoro 4
+
+- [x] install the packages (update old ones)
+- [x] create the .env file with the SONAR_TOKEN and SYNK_TOKEN
+  - [x] input parameters to obtain the tokens
+  - [x] update .env file with retrieved tokens
+
 # Tech Debt
 
 - [ ] add validation for bash script
 - [ ] add note to readme that user should run script in directory where they want to create project.
 - [ ] include option to install gh cli if it's not already present
 - [ ] Add validation to ensure dependencies are installed
+- [ ] Automatically update .nvmrc
+- [ ] Add echo statements for each stage
+- [ ] Add sonar organisation to travis yml
