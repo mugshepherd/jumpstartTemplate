@@ -1,8 +1,8 @@
 #!/bin/sh
 
-echo "############################################################################"
-echo "WARNING: This script requires 'github cli' and 'travis cli' to be installed."
-echo "############################################################################"
+echo "##################################################################################"
+echo "WARNING: This script requires 'github cli', 'travis cli' and 'jq' to be installed."
+echo "##################################################################################"
 
 echo -e "\nPlease provide the name for the GitHub project you want to create:"
 read GITHUB_PROJECT
