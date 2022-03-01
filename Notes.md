@@ -24,6 +24,12 @@
   - [x] fetch
   - [x] checkout main
 
+## Pomodoro 3
+
+- [x] Sync project with Travis
+- [ ] Swap the old project name with new one
+- [ ] Add validation to ensure dependencies are installed
+
 # Tech Debt
 
 - [ ] add validation for bash script
