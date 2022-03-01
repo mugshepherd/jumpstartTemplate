@@ -27,11 +27,11 @@
 ## Pomodoro 3
 
 - [x] Sync project with Travis
-- [ ] Swap the old project name with new one
-- [ ] Add validation to ensure dependencies are installed
+- [x] Swap the old project name with new one
 
 # Tech Debt
 
 - [ ] add validation for bash script
 - [ ] add note to readme that user should run script in directory where they want to create project.
 - [ ] include option to install gh cli if it's not already present
+- [ ] Add validation to ensure dependencies are installed
