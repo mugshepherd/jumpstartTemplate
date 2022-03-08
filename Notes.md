@@ -39,7 +39,7 @@
 ## Pomodoro 5
 
 - [x] Enable Travis for the project
-- [ ] Add SONAR_TOKEN and SNYK_TOKEN securely to your pipeline
+- [x] Add SONAR_TOKEN and SNYK_TOKEN securely to your pipeline
 
 # Tech Debt
 
@@ -50,3 +50,4 @@
 - [ ] Automatically update .nvmrc
 - [ ] Add echo statements for each stage
 - [ ] Add sonar organisation to travis yml
+- [ ] Add a way to differential secure global travis env vars

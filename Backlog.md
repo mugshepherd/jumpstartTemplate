@@ -8,7 +8,7 @@
 - [x] swap the old project name with the new one
 - [x] install the packages (maybe update old packages)
 - [x] create the .env file with the SONAR_TOKEN and SNYK_TOKEN
-- [ ] Enable Travis for the project (nothing to be done for Github actions)
-- [ ] add SONAR_TOKEN and SNYK_TOKEN securely to your pipeline
+- [x] Enable Travis for the project (nothing to be done for Github actions)
+- [x] add SONAR_TOKEN and SNYK_TOKEN securely to your pipeline
 - [ ] Commit the changes and push
 - [ ] Open the repository with VS Code

@@ -44,9 +44,12 @@ if [ -f ".env" ]; then
   truncate -s 0 .env
 fi
 
+# enable Travis for the project
+travis enable
+
 # populate .env file with sonar-scanner properties
 echo -e "SONAR_TOKEN=${SONAR_TOKEN}" >> .env
 echo -e "SNYK_TOKEN=${SNYK_TOKEN}" >> .env
-
-# enable Travis for the project
-travis enable
+# populate travis.yml with sonar and snyk properties
+yes | travis encrypt SONAR_TOKEN="${SONAR_TOKEN}" --add
+yes | travis encrypt SNYK_TOKEN="${SNYK_TOKEN}" --add
