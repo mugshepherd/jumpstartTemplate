@@ -21,3 +21,4 @@
 - [ ] Providing an option to the user for installing SNYK and SONAR
 - [ ] Providing support for both GHE and GH Public when creating a project
 - [ ] Adding SONAR_ORGANIZATION, SONAR_PROJECT_KEY to enable sonar for the project
+- [ ] Add Snyk, Travis and GitHub badges to readme
