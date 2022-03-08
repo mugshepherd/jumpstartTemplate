@@ -42,13 +42,9 @@
 - [x] Add SONAR_TOKEN and SNYK_TOKEN securely to your pipeline
 - [x] Commit the changes and push
 
-# Tech Debt
+## Pomodoro 6
 
-- [ ] add validation for bash script
-- [ ] add note to readme that user should run script in directory where they want to create project.
-- [ ] include option to install gh cli if it's not already present
-- [ ] Add validation to ensure dependencies are installed
-- [ ] Automatically update .nvmrc
+- [x] Open the repository with VS Code
 - [ ] Add echo statements for each stage
-- [ ] Add sonar organisation to travis yml
-- [ ] Add a way to differential secure global travis env vars
+- [ ] Automatically update .nvmrc
+- [ ] Adding SONAR_ORGANIZATION, SONAR_PROJECT_KEY to enable sonar for the project

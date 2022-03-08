@@ -59,9 +59,13 @@ read GITHUB_USERNAME
 echo -e "\nPlease provide your GitHub email address:"
 read GITHUB_EMAIL
 
+# commit the changes and push
 git config user.name "${GITHUB_USERNAME}"
 git config user.email "${GITHUB_EMAIL}"
 git add .travis.yml package.json package-lock.json
 git commit -m "build: setup new project files"
 git push origin main
 echo -e "\nChanges pushed to ${GITHUB_PROJECT}"
+
+# open the repository with VS Code
+code .
