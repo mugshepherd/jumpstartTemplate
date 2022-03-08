@@ -10,5 +10,5 @@
 - [x] create the .env file with the SONAR_TOKEN and SNYK_TOKEN
 - [x] Enable Travis for the project (nothing to be done for Github actions)
 - [x] add SONAR_TOKEN and SNYK_TOKEN securely to your pipeline
-- [ ] Commit the changes and push
+- [x] Commit the changes and push
 - [ ] Open the repository with VS Code

@@ -40,6 +40,7 @@
 
 - [x] Enable Travis for the project
 - [x] Add SONAR_TOKEN and SNYK_TOKEN securely to your pipeline
+- [x] Commit the changes and push
 
 # Tech Debt
 

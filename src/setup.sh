@@ -53,3 +53,15 @@ echo -e "SNYK_TOKEN=${SNYK_TOKEN}" >> .env
 # populate travis.yml with sonar and snyk properties
 yes | travis encrypt SONAR_TOKEN="${SONAR_TOKEN}" --add
 yes | travis encrypt SNYK_TOKEN="${SNYK_TOKEN}" --add
+
+echo -e "\nPlease provide your GitHub username:"
+read GITHUB_USERNAME
+echo -e "\nPlease provide your GitHub email address:"
+read GITHUB_EMAIL
+
+git config user.name "${GITHUB_USERNAME}"
+git config user.email "${GITHUB_EMAIL}"
+git add .travis.yml package.json package-lock.json
+git commit -m "build: setup new project files"
+git push origin main
+echo -e "\nChanges pushed to ${GITHUB_PROJECT}"
