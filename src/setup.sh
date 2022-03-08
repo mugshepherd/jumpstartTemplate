@@ -47,3 +47,6 @@ fi
 # populate .env file with sonar-scanner properties
 echo -e "SONAR_TOKEN=${SONAR_TOKEN}" >> .env
 echo -e "SNYK_TOKEN=${SNYK_TOKEN}" >> .env
+
+# enable Travis for the project
+travis enable

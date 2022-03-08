@@ -36,6 +36,11 @@
   - [x] input parameters to obtain the tokens
   - [x] update .env file with retrieved tokens
 
+## Pomodoro 5
+
+- [x] Enable Travis for the project
+- [ ] Add SONAR_TOKEN and SNYK_TOKEN securely to your pipeline
+
 # Tech Debt
 
 - [ ] add validation for bash script
