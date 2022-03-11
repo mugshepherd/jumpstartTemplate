@@ -36,6 +36,10 @@ ncu -u # upgrades all version refs in package.json
 npm install
 echo -e "\n✅ Packages installed successfully!"
 
+echo -e "\n💬 Please provide your SonarCloud organization name"
+read SONAR_ORGANIZATION
+echo -e "\n💬 Please provide your SonarCloud project key"
+read SONAR_PROJECT_KEY
 echo -e "\n💬 Please provide your SONAR_TOKEN"
 read -s SONAR_TOKEN
 echo "[secure]"
@@ -53,12 +57,16 @@ echo -e "\n✅ File updated successfully!"
 
 echo -e "\nℹ️ Updating .env file with environment variables..."
 cat > .env << EOF
+SONAR_ORGANIZATION=${SONAR_ORGANIZATION}
+SONAR_PROJECT_KEY=${SONAR_PROJECT_KEY}
 SONAR_TOKEN=${SONAR_TOKEN}
 SNYK_TOKEN=${SNYK_TOKEN}
 EOF
 echo -e "\n✅ File updated successfully!"
 
 echo -e "\nℹ️ Updating .travis.yml file with environment variables..."
+yq -Y .env.global.SONAR_ORGANIZATION="${SONAR_ORGANIZATION}" .travis.yml > tmp && mv tmp .travis.yml
+yq -Y .env.global.SONAR_PROJECT_KEY="${SONAR_PROJECT_KEY}" .travis.yml > tmp && mv tmp .travis.yml
 yes | travis encrypt SONAR_TOKEN="${SONAR_TOKEN}" --add
 yes | travis encrypt SNYK_TOKEN="${SNYK_TOKEN}" --add
 echo -e "\n✅ File updated successfully!"
