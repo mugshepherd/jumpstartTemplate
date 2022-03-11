@@ -1,3 +1,5 @@
+⏳✅❌ℹ️💬🚀
+
 # Pomodori
 
 ## Pomodoro 0
@@ -24,8 +26,27 @@
   - [x] fetch
   - [x] checkout main
 
-# Tech Debt
+## Pomodoro 3
 
-- [ ] add validation for bash script
-- [ ] add note to readme that user should run script in directory where they want to create project.
-- [ ] include option to install gh cli if it's not already present
+- [x] Sync project with Travis
+- [x] Swap the old project name with new one
+
+## Pomodoro 4
+
+- [x] install the packages (update old ones)
+- [x] create the .env file with the SONAR_TOKEN and SYNK_TOKEN
+  - [x] input parameters to obtain the tokens
+  - [x] update .env file with retrieved tokens
+
+## Pomodoro 5
+
+- [x] Enable Travis for the project
+- [x] Add SONAR_TOKEN and SNYK_TOKEN securely to your pipeline
+- [x] Commit the changes and push
+
+## Pomodoro 6
+
+- [x] Open the repository with VS Code
+- [x] Add echo statements for each stage
+- [x] Automatically update .nvmrc
+- [x] Adding SONAR_ORGANIZATION, SONAR_PROJECT_KEY to enable sonar for the project

@@ -1,0 +1,24 @@
+# Checklist
+
+- [x] gh repo create command (using your template repo as the template)
+- [x] accept an input parameter of the name of the repository
+- [x] pull the code down locally
+- [x] checkout the main branch
+- [x] Sync your project with Travis (nothing to be done for Github actions)
+- [x] swap the old project name with the new one
+- [x] install the packages (maybe update old packages)
+- [x] create the .env file with the SONAR_TOKEN and SNYK_TOKEN
+- [x] Enable Travis for the project (nothing to be done for Github actions)
+- [x] add SONAR_TOKEN and SNYK_TOKEN securely to your pipeline
+- [x] Commit the changes and push
+- [x] Open the repository with VS Code
+- [ ] add validation for bash script
+- [ ] add note to readme that user should run script in directory where they want to create project.
+- [ ] include option to install dependencies (e.g. gh cli) if it's not already present
+- [ ] Add validation to ensure dependencies are installed
+- [ ] Add sonar organisation to travis yml
+- [ ] Add a way to differential secure global travis env vars
+- [ ] Providing an option to the user for installing SNYK and SONAR
+- [ ] Providing support for both GHE and GH Public when creating a project
+- [ ] Adding SONAR_ORGANIZATION, SONAR_PROJECT_KEY to enable sonar for the project
+- [ ] Add Snyk, Travis and GitHub badges to readme
