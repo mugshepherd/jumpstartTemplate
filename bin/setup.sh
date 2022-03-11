@@ -1,8 +1,8 @@
 #!/bin/sh
 
-echo "####################################################################################"
-echo "WARNING: This script requires 'github cli', 'travis cli', 'yq' 'jq' to be installed."
-echo "####################################################################################"
+echo "########################################################################################"
+echo "WARNING: This script requires 'github cli', 'travis cli', 'yq' and 'jq' to be installed."
+echo "########################################################################################"
 
 echo -e "\n💬 Please provide the template url:"
 read GITHUB_TEMPLATE
@@ -64,7 +64,7 @@ curl --location --include \
 echo -e "\n✅ Leak period type set successfully!"
 
 echo -e "\nℹ️ Enabling travis for the project..."
-travis enable
+yes | travis enable
 echo -e "\n✅ Enabled successfully!"
 
 echo -e "\nℹ️ Updating .env file with environment variables..."
