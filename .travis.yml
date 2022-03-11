@@ -47,9 +47,7 @@ jobs:
     - stage: Shellspec & sonar-scanner
       script:
         - shellspec
-        - sonar-scanner -D sonar.organization="${SONAR_ORGANIZATION}" -D sonar.login="${SONAR_TOKEN}"
-          -D sonar.projectKey="${SONAR_PROJECT_KEY}" -D sonar.projectName="${SONAR_PROJECT_NAME}"
-          -D sonar.branch.name="${TRAVIS_BRANCH}"
+        - sonarscanner
       name: Shellspec & sonar-scanner
       env: Shellspec & sonar-scanner
       before_install:
@@ -65,6 +63,7 @@ jobs:
       install:
         - curl -fsSL https://git.io/shellspec | sh -s -- --yes
         - shellspec --version
+        - source ./lib/sonarcloud.sh
 env:
   global:
     - secure: F62VbV325BSX6Z288Ov0mvgiavpg9h4YWLMol6M7HK+93KSOQH9tki1i3mVNMA/WvOO/nsAb/Cj/8qC/Pe+0st2bI8e6Kv1PSqKADPqSdClX9BCWGP2sZRAdTMEwEc3ibHnjlm7tZxmef8uQHa59/mmSTbPvuILc5QT+zGes5y+7Q53p6qxDUEubfZaU34wmAu7disK4SGdMhDw+Gs0u4rsGGygzO9hgtspoqS4mpxCOlFiOHlXc167p4oVHXEbi5PTieI7nZ9wh1/8epjVhiyyz58gS4RK+oeKlPCWHFD58Zl4MuhJm5RNykLBnjoMt4sxmXphIc3CNefyojJu6RqkQ/rsTqko2g7Ok6bG+yMMTazabKtSc7A3+1E0HkzERDwTSQEVLf9QEv0qSZ+NOisDOZwOpea9Tavkp44bS0HRgeyben8NDJTitXpXR58nXFdmcYNt43EmD3izI6hqQovQhuHKelXuYGECStxSBnKIiimIYx9nAqtTbTSHkSlhyz2i1MMiK6e+5mlx+m7wgAi1QtfQ6WjKIa2LXDEaLCX6bvNB6Wbnn8xDTtDq2d8QtJMQJaByAbpwRHBZeOU0nnPLOOsYuCe1wd8hJSu73ds612vI3R6S/HjYi58neabBu05ZO7pAmGT3iinXtvphrL8ooywXbDTbGk4L/iN1HZPA=
