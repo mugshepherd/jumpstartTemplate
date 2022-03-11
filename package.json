@@ -43,7 +43,7 @@
     "eslint-plugin-yml": "^0.14.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.5",
-    "npm-check-updates": "^12.5.2",
+    "npm-check-updates": "^12.5.3",
     "prettier": "^2.5.1",
     "prettier-plugin-sh": "^0.8.1",
     "snyk": "^1.868.0",
