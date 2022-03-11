@@ -51,6 +51,33 @@ echo -e "\n💬 Please provide your SNYK_TOKEN"
 read -s SNYK_TOKEN
 echo "[secure]"
 
+echo -e "\nℹ️ Creating project in SonarCloud..."
+curl --include \
+  --request POST \
+  --header "Content-Type: application/x-www-form-urlencoded" \
+  -u ${SONAR_TOKEN}: \
+  -d "project=${SONAR_PROJECT_KEY}&organization=${SONAR_ORGANIZATION}&name=${SONAR_PROJECT_KEY}" \
+  'https://sonarcloud.io/api/projects/create'
+echo -e "\n✅ Project created successfully!"
+
+echo -e "\nℹ️ Setting leak period in SonarCloud..."
+curl --location --include \
+  --request POST \
+  --header "Content-Type: application/x-www-form-urlencoded" \
+  -u ${SONAR_TOKEN}: \
+  -d "key=sonar.leak.period&value=previous_version&component=${SONAR_PROJECT_KEY}" \
+  'https://sonarcloud.io/api/settings/set'
+echo -e "\n✅ Leak period set successfully!"
+
+echo -e "\nℹ️ Setting leak period type in SonarCloud..."
+curl --location --include \
+  --request POST \
+  --header "Content-Type: application/x-www-form-urlencoded" \
+  -u ${SONAR_TOKEN}: \
+  -d "key=sonar.leak.period.type&value=previous_version&component=${SONAR_PROJECT_KEY}" \
+  'https://sonarcloud.io/api/settings/set'
+echo -e "\n✅ Leak period type set successfully!"
+
 echo -e "\nℹ️ Enabling travis for the project..."
 travis enable
 echo -e "\n✅ Enabled successfully!"

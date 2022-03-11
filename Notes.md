@@ -54,6 +54,6 @@
 ## Pomodoro 7
 
 - [x] Re-order commands for more logical flow
-- [ ] Create project in Snyk
-- [ ] Create project in SonarCloud
-- [ ] Set new code quality gate to 'previous code'
+- [x] Create project in Snyk
+- [x] Create project in SonarCloud
+- [x] Set new code quality gate to 'previous version'

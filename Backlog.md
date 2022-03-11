@@ -16,9 +16,9 @@
 - [x] Automatically update .nvmrc
 - [x] Adding SONAR_ORGANIZATION, SONAR_PROJECT_KEY to enable sonar for the project
 - [x] Re-order commands for more logical flow
-- [ ] Create project in Snyk
-- [ ] Create project in SonarCloud
-- [ ] Set new code quality gate to 'previous code'
+- [x] Create project in Snyk
+- [x] Create project in SonarCloud
+- [x] Set new code quality gate to 'previous version'
 - [ ] add validation for bash script
 - [ ] add note to readme that user should run script in directory where they want to create project.
 - [ ] include option to install dependencies (e.g. gh cli) if it's not already present
