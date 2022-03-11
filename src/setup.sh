@@ -1,7 +1,5 @@
 #!/bin/sh
 
-⏳✅❌ℹ️💬🚀
-
 echo "##################################################################################"
 echo "WARNING: This script requires 'github cli', 'travis cli' and 'jq' to be installed."
 echo "##################################################################################"
@@ -56,22 +54,23 @@ SNYK_TOKEN=${SNYK_TOKEN}
 EOF
 echo -e "\n✅ File updated successfully!"
 
-# populate travis.yml with sonar and snyk properties
+echo -e "\nℹ️ Updating .travis.yml file with environment variables..."
 yes | travis encrypt SONAR_TOKEN="${SONAR_TOKEN}" --add
 yes | travis encrypt SNYK_TOKEN="${SNYK_TOKEN}" --add
+echo -e "\n✅ File updated successfully!"
 
 echo -e "\n💬 Please provide your GitHub username:"
 read GITHUB_USERNAME
 echo -e "\n💬 Please provide your GitHub email address:"
 read GITHUB_EMAIL
 
-# commit the changes and push
+echo -e "\nℹ️ Committing and pushing updated files to git..."
 git config user.name "${GITHUB_USERNAME}"
 git config user.email "${GITHUB_EMAIL}"
 git add .travis.yml package.json package-lock.json
 git commit -m "build: setup new project files"
 git push origin main
-echo -e "\nChanges pushed to ${GITHUB_PROJECT}"
+echo -e "\n✅ Changes pushed successfully!"
 
-# open the repository with VS Code
+echo -e "\n🚀 Project setup complete! Opening project in VS Code..."
 code .

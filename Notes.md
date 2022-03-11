@@ -1,3 +1,5 @@
+⏳✅❌ℹ️💬🚀
+
 # Pomodori
 
 ## Pomodoro 0
@@ -45,6 +47,6 @@
 ## Pomodoro 6
 
 - [x] Open the repository with VS Code
-- [ ] Add echo statements for each stage
+- [x] Add echo statements for each stage
 - [ ] Automatically update .nvmrc
 - [ ] Adding SONAR_ORGANIZATION, SONAR_PROJECT_KEY to enable sonar for the project
