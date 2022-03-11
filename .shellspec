@@ -1,0 +1,6 @@
+--require spec_helper
+
+--kcov
+
+--kcov-options "--include-path=./bin,./lib"
+--kcov-options "--include-pattern=.sh"

@@ -11,6 +11,7 @@ cache:
 addons:
   sonarcloud: true
 services: docker
+sudo: true
 stages:
   - name: Static code validations
   - name: Unit test & sonar-scanner
@@ -21,9 +22,14 @@ jobs:
       name: Commitlint verification
       env: Commitlint verification
 
-    - script: npm run eslint:verify
-      name: ESLint verification
-      env: ESLint verification
+    - script: npm run shellcheck ./bin/*.sh ./lib/*.sh
+      name: Shellcheck verification
+      env: Shellcheck verification
+      language: bash
+      install:
+        - wget -qO- "https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.linux.x86_64.tar.xz" | tar -xJv
+        - sudo cp "shellcheck-stable/shellcheck" /usr/bin/
+        - shellcheck --version
 
     - script: npm run prettier:verify
       name: Prettier verification
@@ -33,16 +39,35 @@ jobs:
       name: Detect secrets in files
       env: Detect secrets in files
 
-    # - script: npm run test:snyk
-    #   name: Snyk test & monitor
-    #   env: Snyk test & monitor
-    #   after_success: npm run test:snyk:monitor
+    - script: npm run test:snyk
+      name: Snyk test & monitor
+      env: Snyk test & monitor
+      after_success: npm run test:snyk:monitor
 
-    # - stage: Unit test & sonar-scanner
-    #   script:
-    #     - npm run test:unit
-    #     - sonar-scanner -D sonar.organization="${SONAR_ORGANIZATION}" -D sonar.login="${SONAR_TOKEN}"
-    #       -D sonar.projectKey="${SONAR_PROJECT_KEY}" -D sonar.projectName="${SONAR_PROJECT_NAME}"
-    #       -D sonar.branch.name="${TRAVIS_BRANCH}"
-    #   name: Unit test & sonar-scanner
-    #   env: Unit test & sonar-scanner
+    - stage: Shellspec & sonar-scanner
+      script:
+        - shellspec
+        - sonarscanner
+      name: Shellspec & sonar-scanner
+      env: Shellspec & sonar-scanner
+      before_install:
+        - lsb_release -a
+        - sudo apt-get update
+        - sudo apt-get install -y bash binutils-dev libcurl4-openssl-dev zlib1g-dev libdw-dev libiberty-dev
+        - git clone https://github.com/SimonKagstrom/kcov.git
+        - cd kcov
+        - mkdir build; cd build; cmake ..; make -j4; sudo make install
+        - cd ../..
+        - git clone https://github.com/shellspec/shellspec.git
+        - kcov --version
+      install:
+        - curl -fsSL https://git.io/shellspec | sh -s -- --yes
+        - shellspec --version
+        - source ./lib/sonarcloud.sh
+env:
+  global:
+    - secure: F62VbV325BSX6Z288Ov0mvgiavpg9h4YWLMol6M7HK+93KSOQH9tki1i3mVNMA/WvOO/nsAb/Cj/8qC/Pe+0st2bI8e6Kv1PSqKADPqSdClX9BCWGP2sZRAdTMEwEc3ibHnjlm7tZxmef8uQHa59/mmSTbPvuILc5QT+zGes5y+7Q53p6qxDUEubfZaU34wmAu7disK4SGdMhDw+Gs0u4rsGGygzO9hgtspoqS4mpxCOlFiOHlXc167p4oVHXEbi5PTieI7nZ9wh1/8epjVhiyyz58gS4RK+oeKlPCWHFD58Zl4MuhJm5RNykLBnjoMt4sxmXphIc3CNefyojJu6RqkQ/rsTqko2g7Ok6bG+yMMTazabKtSc7A3+1E0HkzERDwTSQEVLf9QEv0qSZ+NOisDOZwOpea9Tavkp44bS0HRgeyben8NDJTitXpXR58nXFdmcYNt43EmD3izI6hqQovQhuHKelXuYGECStxSBnKIiimIYx9nAqtTbTSHkSlhyz2i1MMiK6e+5mlx+m7wgAi1QtfQ6WjKIa2LXDEaLCX6bvNB6Wbnn8xDTtDq2d8QtJMQJaByAbpwRHBZeOU0nnPLOOsYuCe1wd8hJSu73ds612vI3R6S/HjYi58neabBu05ZO7pAmGT3iinXtvphrL8ooywXbDTbGk4L/iN1HZPA=
+    - secure: GB7pDHkRGhFzwKP6lWKMkqjlgOtnBNFStDtkWVbhEzs8ywA+y2LdhyOdvPFC2HDAQA5ty9onLmsSURzh9PXATwiqvsVCm+ax9n4MM4MH1fwE93GmuYkg98sM/G5XZcCiMK6f3NVly2kn5oKYgAjvuDKnkAjMp6eRpAEvt8V39+WXJ1UfAYpP1fAteWPjNhyclsv+oEK35m55RVcEYd8zqLEXqeWgEbGgLZCwdYQZpWNumOBlfiMH0jXfd6WayP3ykjpRgNQZUDFC966/1OMx+1SD84/GokX84074n589m3ZABSZB+KHhYPlbDge4XkuJ6qAFaUrYHeSteOvov7o3sHgyFHkZxSzOwya/UGmY28QQNbuPG0o0bTsPTH6Uuc71xyThuFC2HXEveUsGtqkPj/8aBcczinpS9KMVSq54B17lxxEfHesRQmVlzDPzIEQgMlKtRmXs3oFBjubGBMUzYna+LeRJv6EASh89Gxt+fnmP6om++LZtIzqRr4gQhjtoVjm7pY5p/F1+MrHXK9xUYLikl/LROXdAztvrgOAGzTRDDyAuMtfgVKDm7p9f78EGVgVSVGubfLpt18UjDeu9r80CO7lBCwYxk6Ud8yf4zQ9h6vYkCHFyHdV5ah0E2Zs9tuKpDVuc9v50vL7fkxQiBu0wDtrfaZwD4MjLBYM02mo=
+    - secure: CsBqoedGljN2KHJKL/OeD7941CARCxNBDlqUSyweWbZjXf0liPNzF3GzPA+/mhwefND4OO+5GPbmccsk6Bupn3pzEcJdflTP6XWRc39j72KyP4ErNmo/Jflb8+CuiQ/tdmze/YlR9jma6di1UI3CQgb+DtZnmEL/pRwWvJ/gecol5S/RtiKhdOun9WUG/+vi3pxvvOfYyIotRI2zk1PsV5+cfM3gBnx1cgeJFJlPKA3nWmvQn37bmL21UcQBvo0egKAuFl009iIG+Vcd5WCshiVBh80Wit/z85DB0/Z8RVJwJ5kGMz54w+F1HpnF7sQ27EzntCvDfkbS8dXuEX1hPxcp0x6mD0GZfXCe2rvSt0Rhsi1S0RTf+iVKP/4Kfr2yZ/GZ9GQqP0AscRnf7Vdnmcn21zPzhYyKioJnF3Aqyt1AO+epCZSHW3GxLi1tpKG51EF47LilVHPga5jSFEtEGsYIdEbFztVVfmWpZZsVQTsuK9IShhfCvXJWsGqQ1hoRHD5YiV1I/LboUuntijinlOm3mljOvgN4LfxJ6gznRmGGfW3TbOmoOpWwrUkl5npRLsQE7hLD8SYFQjjvLop2Ttc9PfUKbE0djsnce6iArKr3sk/QEN1wmIPUULGAljqmcJVBLI/6w+pXg8Llbgz3gd/6K4AbIHpHP8Rwks5jWzY=
+    - secure: lAw+qHPN4fPInbj7A6gD0AI+iL9VSZyCzYFu0wT9DLueD3WOtB1UCXDN1AnEFFx2SqkkEj0+g8is7PKBVeRuCp+lCPXi1xTtDQ18r+S5let+0c7tUsDYc4fi8SyG8EDyO9Yv/HZFlwt1p0xocS9WUPXQeNpbXU7zoaWdGESJJ5+QQcTRGCcq9t4qDegJczcRyBh2y+en7sjS8LxOgX6wLSykNrJFicXTN5XB6mYAfndQmkl1ZxugYFxC7tmluB5ljWpOEV56IT3BQ8qLPYKjhMnbGM+NFCVP4G/YUy+HuGkTlnANJfCns3YavsGePDCOFQ/VPmOvnLCadWhuKvvUX60kRST/QRdZ1vwsedD67XV9oHodzZEhl2LT3TFZ/dDaW9mHkZYCV2ZdzBOyp8YzHLY425w8p8b2gN2ZJzdZZm2LXZ/siStAIpr+kLhHyGzEnYZenpk0c0fFGP6dqvctAVDDuaT2nHfJ0i6w9QQGke9KuQ017GlbzJ6ru8WIrcekJi/RWERlqNYfptRZ04h2CsFGqQCTeMelRdlBl8u7ZoDTIMkvv156vKCLFEokIiYo8ct2ccO0N8e8mHEhYAMf1wDlfL3yKysDULs7Is9iVjZ5VUjj/daOfoMv7UFGfmfZx5afOmLyNYD3wd5mVeMQpN3bnE82ef8ZmlX3skAawQM=
+    - secure: IO+RBK5YtL3W4ORMMXNk5ReddC5EL/5EsjiIUUx6oG/hkflEPaaKOaPB9XUDM5yVxcLxLfNITf8sllgOOBJqg3y7ykOG+xNBUjT9PrSRyxQ9kvrXlxbZQcTgPnWbEczUvmgO07gWjWE6GXLIrXDEjb+zfGSspXhrSqnShHeAVY9Gpn1GSefuOIBQVBr7gzE5heYMoEG8gskmVZrUNtf8wH1/urlaKZjH6ZkV42j+Z8VCxd+hvf+rdLRxDSFYsokE/fEX6tRiqT1XOkEul+vUZAVn5nD76c+bC9rikr8N9c31FGKk+A+dmMGPEPIXQTScyjdRHCZfaR+1Hn3qycuJIdlSLNaKgCez14HlIH6Yt/eCY2kO4yl+cCC/6g1jcUoWh35JXtwhGUADOhMTNriGei3f9SEGUOeieXKFFeKVdm8ifmTCOcURzT6dvwbyFYwNnq+DEhxrRnnQGc336AEk7RXr736V217v/NEUCz3JuagREltPLP1U7RZUF9ectpZdohqREFkBPl+sKoGidDL09x5r/BtXT4pe9owuYUw88CpYTPl8aTQpvGp6GaPJpUQ9OxSiHGQeMvnzzTuBs7ewM7yOpAxDncQU1tp7DMjxRUzFUQtto31kw9rEb/6iWjnSwqoHh1O6FN0yIvgQ3OFo9UiuSb+0mR0wFruvUgV0sKs=
