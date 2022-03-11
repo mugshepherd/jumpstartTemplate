@@ -19,6 +19,7 @@
 - [x] Create project in Snyk
 - [x] Create project in SonarCloud
 - [x] Set new code quality gate to 'previous version'
+- [x] Update secrets.basline
 - [ ] add validation for bash script
 - [ ] add note to readme that user should run script in directory where they want to create project.
 - [ ] include option to install dependencies (e.g. gh cli) if it's not already present

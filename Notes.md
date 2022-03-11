@@ -57,3 +57,8 @@
 - [x] Create project in Snyk
 - [x] Create project in SonarCloud
 - [x] Set new code quality gate to 'previous version'
+
+## Pomodoro 8
+
+- [x] Update secrets.baseline
+- [x] Refactor and tidy setup script
