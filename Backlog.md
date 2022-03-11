@@ -12,13 +12,18 @@
 - [x] add SONAR_TOKEN and SNYK_TOKEN securely to your pipeline
 - [x] Commit the changes and push
 - [x] Open the repository with VS Code
+- [x] Add echo statements for each stage
+- [x] Automatically update .nvmrc
+- [x] Adding SONAR_ORGANIZATION, SONAR_PROJECT_KEY to enable sonar for the project
+- [x] Re-order commands for more logical flow
+- [ ] Create project in Snyk
+- [ ] Create project in SonarCloud
+- [ ] Set new code quality gate to 'previous code'
 - [ ] add validation for bash script
 - [ ] add note to readme that user should run script in directory where they want to create project.
 - [ ] include option to install dependencies (e.g. gh cli) if it's not already present
 - [ ] Add validation to ensure dependencies are installed
-- [ ] Add sonar organisation to travis yml
 - [ ] Add a way to differential secure global travis env vars
 - [ ] Providing an option to the user for installing SNYK and SONAR
 - [ ] Providing support for both GHE and GH Public when creating a project
-- [ ] Adding SONAR_ORGANIZATION, SONAR_PROJECT_KEY to enable sonar for the project
 - [ ] Add Snyk, Travis and GitHub badges to readme

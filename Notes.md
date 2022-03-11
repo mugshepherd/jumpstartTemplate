@@ -50,3 +50,10 @@
 - [x] Add echo statements for each stage
 - [x] Automatically update .nvmrc
 - [x] Adding SONAR_ORGANIZATION, SONAR_PROJECT_KEY to enable sonar for the project
+
+## Pomodoro 7
+
+- [x] Re-order commands for more logical flow
+- [ ] Create project in Snyk
+- [ ] Create project in SonarCloud
+- [ ] Set new code quality gate to 'previous code'

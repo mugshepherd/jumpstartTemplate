@@ -1,15 +1,24 @@
 #!/bin/sh
 
-echo "##################################################################################"
-echo "WARNING: This script requires 'github cli', 'travis cli' and 'jq' to be installed."
-echo "##################################################################################"
+echo "####################################################################################"
+echo "WARNING: This script requires 'github cli', 'travis cli', 'yq' 'jq' to be installed."
+echo "####################################################################################"
 
+echo -e "\nℹ️ Installing latest version of node packages..."
+ncu -u # upgrades all version refs in package.json
+npm install
+echo -e "\n✅ Packages installed successfully!"
+
+echo -e "\nℹ️ Updating .nvmrc with latest node lts..."
+nvm ls-remote --lts | tail -1 | grep -o -E '(\d+\.)(\d+\.)(\*|\d+)' > .nvmrc
+echo -e "\n✅ File updated successfully!"
+
+echo -e "\n💬 Please provide the template url:"
+read GITHUB_TEMPLATE
 echo -e "\n💬 Please provide the name for the GitHub project you want to create:"
 read GITHUB_PROJECT
 echo -e "\n💬 Please provide a short description about the GitHub project you want to create:"
 read GITHUB_DESCRIPTION
-echo -e "\n💬 Please provide the template url:"
-read GITHUB_TEMPLATE
 
 echo -e "\nℹ️ Creating GitHub repository..."
 gh repo create "${GITHUB_PROJECT}" --public --template="${GITHUB_TEMPLATE}" --clone
@@ -31,11 +40,6 @@ jq --arg description "${GITHUB_DESCRIPTION}" '.description=$description' "packag
 rm -rf tmp
 echo -e "\n✅ File updated successfully!"
 
-echo -e "\nℹ️ Installing latest version of node packages..."
-ncu -u # upgrades all version refs in package.json
-npm install
-echo -e "\n✅ Packages installed successfully!"
-
 echo -e "\n💬 Please provide your SonarCloud organization name"
 read SONAR_ORGANIZATION
 echo -e "\n💬 Please provide your SonarCloud project key"
@@ -50,10 +54,6 @@ echo "[secure]"
 echo -e "\nℹ️ Enabling travis for the project..."
 travis enable
 echo -e "\n✅ Enabled successfully!"
-
-echo -e "\nℹ️ Updating .nvmrc with latest node lts..."
-nvm ls-remote --lts | tail -1 | grep -o -E '(\d+\.)(\d+\.)(\*|\d+)' > .nvmrc
-echo -e "\n✅ File updated successfully!"
 
 echo -e "\nℹ️ Updating .env file with environment variables..."
 cat > .env << EOF
