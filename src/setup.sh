@@ -47,6 +47,10 @@ echo -e "\nℹ️ Enabling travis for the project..."
 travis enable
 echo -e "\n✅ Enabled successfully!"
 
+echo -e "\nℹ️ Updating .nvmrc with latest node lts..."
+nvm ls-remote --lts | tail -1 | grep -o -E '(\d+\.)(\d+\.)(\*|\d+)' > .nvmrc
+echo -e "\n✅ File updated successfully!"
+
 echo -e "\nℹ️ Updating .env file with environment variables..."
 cat > .env << EOF
 SONAR_TOKEN=${SONAR_TOKEN}
@@ -67,7 +71,7 @@ read GITHUB_EMAIL
 echo -e "\nℹ️ Committing and pushing updated files to git..."
 git config user.name "${GITHUB_USERNAME}"
 git config user.email "${GITHUB_EMAIL}"
-git add .travis.yml package.json package-lock.json
+git add .nvmrc .travis.yml package.json package-lock.json
 git commit -m "build: setup new project files"
 git push origin main
 echo -e "\n✅ Changes pushed successfully!"

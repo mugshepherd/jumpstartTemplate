@@ -48,5 +48,5 @@
 
 - [x] Open the repository with VS Code
 - [x] Add echo statements for each stage
-- [ ] Automatically update .nvmrc
+- [x] Automatically update .nvmrc
 - [ ] Adding SONAR_ORGANIZATION, SONAR_PROJECT_KEY to enable sonar for the project
