@@ -6,8 +6,8 @@
   "author": "",
   "main": "index.js",
   "scripts": {
-    "detect-secrets": "cross-env-shell docker run --rm -v ${INIT_CWD}:/code ibmcom/detect-secrets-hook:0.13.1.ibm.47.dss --baseline .secrets.baseline",
-    "detect-secrets:update-baseline": "cross-env-shell docker run --rm -v ${INIT_CWD}:/code ibmcom/detect-secrets:0.13.1.ibm.47.dss scan --update .secrets.baseline",
+    "detect-secrets": "cross-env-shell docker run --rm -v ${INIT_CWD}:/code ibmcom/detect-secrets-hook:0.13.1.ibm.48.dss --baseline .secrets.baseline",
+    "detect-secrets:update-baseline": "cross-env-shell docker run --rm -v ${INIT_CWD}:/code ibmcom/detect-secrets:0.13.1.ibm.48.dss scan --update .secrets.baseline",
     "prepare": "husky install",
     "prettier:fix": "prettier --write",
     "prettier:verify": "prettier --check .",
