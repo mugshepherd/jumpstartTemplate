@@ -46,7 +46,7 @@ jobs:
 
     - stage: Shellspec & sonar-scanner
       script:
-        - shellspec
+        - shellspec --kcov --kcov-options "--include-path=./bin,./lib" --kcov-options "--include-pattern=.sh"
         - sonarscanner
       name: Shellspec & sonar-scanner
       env: Shellspec & sonar-scanner
