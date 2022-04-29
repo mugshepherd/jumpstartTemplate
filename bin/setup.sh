@@ -82,22 +82,23 @@ jq --arg description "${GITHUB_DESCRIPTION}" '.description=$description' "packag
 rm -rf tmp
 echo -e "\n✅ File updated successfully!"
 
-echo -e "\nℹ️ Updating .travis.yml file with environment variables..."
-yq -Y .env.global.SONAR_ORGANIZATION="${SONAR_ORGANIZATION}" .travis.yml > tmp && mv tmp .travis.yml
-yq -Y .env.global.SONAR_PROJECT_KEY="${SONAR_PROJECT_KEY}" .travis.yml > tmp && mv tmp .travis.yml
-yes | travis encrypt SONAR_TOKEN="${SONAR_TOKEN}" --add
-yes | travis encrypt SNYK_TOKEN="${SNYK_TOKEN}" --add
-rm -rf tmp
-git add .travis.yml
-echo -e "\n✅ File updated successfully!"
+echo -e "\nℹ️ Updating travis with environment variables..."
+travis env set SONAR_ORGANIZATION "${SONAR_ORGANIZATION}" --public
+travis env set SONAR_PROJECT_KEY "${SONAR_PROJECT_KEY}" --public
+travis env set SONAR_TOKEN "${SONAR_TOKEN}" --private
+travis env set SNYK_TOKEN "${SNYK_TOKEN}" --private
+echo -e "\n✅ Travis updated successfully!"
 
 echo -e "\nℹ️ Installing latest version of node packages..."
-npx ncu -u # upgrades all version refs in package.json
-npm install
+npm ci
+npx npm-check-updates --upgrade
+npm i
 git add package.json package-lock.json
 echo -e "\n✅ Packages installed successfully!"
 
 echo -e "\nℹ️ Updating .nvmrc with latest node lts..."
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # loads nvm
 nvm install --lts
 NODE_VERSION=$(nvm version)
 echo "${NODE_VERSION}" > .nvmrc
@@ -105,7 +106,7 @@ git add .nvmrc
 echo -e "\n✅ File updated successfully!"
 
 echo -e "\nℹ️ Updating .secrets.baseline to prevent new secrets being added..."
-npm run detect-secrets:update-baseline
+detect-secrets-hook --baseline .secrets.baseline
 git add .secrets.baseline
 echo -e "\n✅ File updated successfully!"
 
@@ -118,7 +119,7 @@ echo -e "\nℹ️ Committing and pushing updated files to git..."
 git config user.name "${GITHUB_USERNAME}"
 git config user.email "${GITHUB_EMAIL}"
 git commit -m "build: setup new project repository"
-git push origin main
+git push origin main --no-verify
 echo -e "\n✅ Changes pushed successfully!"
 
 echo -e "\n🚀 Project setup complete! Opening project in VS Code..."

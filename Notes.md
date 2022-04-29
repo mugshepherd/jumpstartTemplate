@@ -62,3 +62,8 @@
 
 - [x] Update secrets.baseline
 - [x] Refactor and tidy setup script
+
+## Pomodoro 9
+
+- [x] Resolve 4 bugs identified with the script
+- [x] Test end-to-end with a repository startup
