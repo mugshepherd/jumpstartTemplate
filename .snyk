@@ -5,11 +5,11 @@ ignore:
   SNYK-JS-DECOMPRESSTAR-559095:
     - sonarqube-scanner > download > decompress > decompress-tar:
         reason: No upgrade or patch available
-        expires: '2022-04-30T15:06:11.537Z'
+        expires: '2022-05-30T15:06:11.537Z'
     - sonarqube-scanner > download > decompress > decompress-tarbz2 > decompress-tar:
         reason: No upgrade or patch available
-        expires: '2022-04-30T15:06:11.537Z'
+        expires: '2022-05-30T15:06:11.537Z'
     - sonarqube-scanner > download > decompress > decompress-targz > decompress-tar:
         reason: No upgrade or patch available
-        expires: '2022-04-30T15:06:11.537Z'
+        expires: '2022-05-30T15:06:11.537Z'
 patch: {}
