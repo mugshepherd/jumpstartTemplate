@@ -31,3 +31,4 @@
 - [ ] Add Snyk, Travis and GitHub badges to readme
 - [ ] Create SONAR_TOKEN for project through cli?
 - [ ] Retrieve SNYK_TOKEN through cli?
+- [ ] Replace docker detect-secrets with alternative approach

@@ -96,6 +96,10 @@ npm i
 git add package.json package-lock.json
 echo -e "\n✅ Packages installed successfully!"
 
+echo -e "\nℹ️ Starting SonarCloud scan for quality gate baseline..."
+npm run test:sonar -D -- sonar.qualitygate.wait=false
+echo -e "\n✅ SonarCloud scan completed successfully!"
+
 echo -e "\nℹ️ Updating .nvmrc with latest node lts..."
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # loads nvm
@@ -119,7 +123,7 @@ echo -e "\nℹ️ Committing and pushing updated files to git..."
 git config user.name "${GITHUB_USERNAME}"
 git config user.email "${GITHUB_EMAIL}"
 git commit -m "build: setup new project repository"
-git push origin main --no-verify
+git push origin main
 echo -e "\n✅ Changes pushed successfully!"
 
 echo -e "\n🚀 Project setup complete! Opening project in VS Code..."
