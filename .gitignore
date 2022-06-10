@@ -109,3 +109,6 @@ dist
 # shellspec files
 .shellspec-local
 .shellspec-quick.log
+
+# Mac File system
+.DS_Store
