@@ -20,7 +20,7 @@
   "lint-staged": {
     "*": "npm run detect-secrets",
     "*.sh": "npm run shellcheck",
-    "*.{sh,md,yml,json}": "npm run prettier:fix",
+    "*.{sh,md,yml,json,code-snippets}": "npm run prettier:fix",
     "package.json": [
       "typesync --silent",
       "sort-package-json"
