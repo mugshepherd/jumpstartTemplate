@@ -12,4 +12,8 @@ ignore:
     - sonarqube-scanner > download > decompress > decompress-targz > decompress-tar:
         reason: No upgrade or patch available
         expires: '2022-12-01T00:00:00.000Z'
+  SNYK-JS-GOT-2932019:
+    - '*':
+        reason: No upgrade or patch available
+        expires: '2022-12-01T00:00:00.000Z'
 patch: {}
