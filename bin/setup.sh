@@ -97,7 +97,7 @@ git add package.json package-lock.json
 echo -e "\n✅ Packages installed successfully!"
 
 echo -e "\nℹ️ Starting SonarCloud scan for quality gate baseline..."
-npm run test:sonar -D -- sonar.qualitygate.wait=false
+npm run test:sonar -- -D sonar.qualitygate.wait=false
 echo -e "\n✅ SonarCloud scan completed successfully!"
 
 echo -e "\nℹ️ Updating .nvmrc with latest node lts..."
